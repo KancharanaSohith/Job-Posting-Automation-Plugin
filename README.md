@@ -128,6 +128,24 @@ No candidate applies to a ghost job. No manual spreadsheet tracking.
 
 ---
 
+## Screenshots (MVP demo)
+
+The `Images/` folder contains proof-of-concept screenshots from a full test run:
+
+| Screenshot | What it shows |
+|------------|---------------|
+| Backend Started | Server running and healthy |
+| BatchId, Request, Status | One form creating multiple openings with unique IDs |
+| HR Received Details | HR notification when a request is submitted |
+| Trigger HR sent call | Owner submitting for HR review |
+| HR Discussion complete | HR marking discussion and legal review done |
+| Trigger Published | Jobs going live on the company portal |
+| Piblished Jobs | Published listings with portal URLs |
+| Trigger Filled User | Confirming a hire |
+| User Role Filled | One opening closed; others remain open |
+
+---
+
 ## For technical readers
 
 <details>
