@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum RequisitionStatus {
+  Draft
+  PendingHR
+  DiscussionCompleted
+  Published
+  Filled
+  Rejected
+  Cancelled
+  Superseded
+  Archived
+}
+
+model Requisition {
+  id                    String            @id @default(uuid())
+  reqId                 String            @unique
+  batchId               String
+  roleTitle             String
+  description           String
+  directorId            String
+  teamId                String
+  ownerUserId           String
+  createdByUserId       String
+  linkedinGroupKey      String
+  status                RequisitionStatus @default(Draft)
+  rejectionReason       String?
+  discussionHrEmail     String?
+  discussionCompletedAt DateTime?
+  discussionCompletedBy String?
+  portalJobId           String?
+  portalUrl             String?
+  filledAt              DateTime?
+  filledByUserId        String?
+  hireName              String?
+  publishedAt           DateTime?
+  archivedAt            DateTime?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  @@index([batchId])
+  @@index([linkedinGroupKey])
+  @@index([status])
+  @@index([ownerUserId])
+  @@index([directorId, teamId])
+}
+
+model LinkedInGroup {
+  id              String   @id @default(uuid())
+  groupKey        String   @unique
+  directorId      String
+  roleTitle       String
+  linkedinPostId  String?
+  linkedinPostUrl String?
+  openCount       Int      @default(0)
+  filledCount     Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model AuditLog {
+  id            String   @id @default(uuid())
+  requisitionId String?
+  reqId         String?
+  action        String
+  actorUserId   String?
+  actorEmail    String?
+  metadata      String?
+  createdAt     DateTime @default(now())
+
+  @@index([requisitionId])
+  @@index([reqId])
+}
